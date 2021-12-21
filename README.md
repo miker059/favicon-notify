@@ -1,7 +1,12 @@
-
-
-# Favicon Notify
-Plugin for displaying notifications on the favicon of the site.
+<p align="center" width="100%">
+    <img src="https://raw.githubusercontent.com/miker059/favicon-notify/master/example/favicon-example.png" alt="Favicon Notify">
+</p>
+<h1 align="center">
+    Favicon Notify JS
+</h1>
+<p align="center" width="100%">
+    Plugin for displaying notifications on the favicon of the site.
+</p>
 
 ### Installation
 
