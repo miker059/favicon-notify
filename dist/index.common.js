@@ -27,7 +27,7 @@ var FaviconNotify = /** @class */ (function () {
             fontVOffset: 4,
             withCounter: false,
             animation: 'none',
-            animationDuration: 500
+            animationDuration: 500,
         };
         this.forceNotCount = false;
         this.readyCallback = null;
@@ -63,7 +63,7 @@ var FaviconNotify = /** @class */ (function () {
             var head = document.getElementsByTagName('head')[0];
             head.appendChild(_this.favicon);
             head.appendChild(_this.appleFavicon);
-            _this.readyCallback && _this.readyCallback();
+            _this.readyCallback !== null && _this.readyCallback();
         });
     };
     FaviconNotify.prototype.ready = function (cb) {
@@ -80,7 +80,14 @@ var FaviconNotify = /** @class */ (function () {
         cnv.width = this.ico.width;
         cnv.height = this.ico.height;
         var ctx = cnv.getContext('2d');
-        var width = cnv.width, height = cnv.height, labelSize = width * this.options.labelSize / 100, labelOffset = width * this.options.labelOffset / 100, labelCenterX = width - labelSize / 2 + labelOffset, labelCenterY = height - labelSize / 2 + labelOffset, labelRadius = labelSize / 2 - labelOffset, fontSize = labelRadius * 2 * this.options.fontSize / 100;
+        var width = cnv.width;
+        var height = cnv.height;
+        var labelSize = (width * this.options.labelSize) / 100;
+        var labelOffset = (width * this.options.labelOffset) / 100;
+        var labelCenterX = width - labelSize / 2 + labelOffset;
+        var labelCenterY = height - labelSize / 2 + labelOffset;
+        var labelRadius = labelSize / 2 - labelOffset;
+        var fontSize = (labelRadius * 2 * this.options.fontSize) / 100;
         if (ctx) {
             ctx.clearRect(0, 0, width, height);
             ctx.beginPath();
@@ -95,7 +102,7 @@ var FaviconNotify = /** @class */ (function () {
                 ctx.textBaseline = 'middle';
                 ctx.font = "".concat(this.options.fontWeight, " ").concat(this.options.fontStyle, " ").concat(fontSize, "px ").concat(this.options.fontFamily);
                 ctx.fillStyle = this.options.textColor;
-                ctx.fillText(value, labelCenterX, (labelCenterY + this.options.fontVOffset), fontSize);
+                ctx.fillText(value, labelCenterX, labelCenterY + this.options.fontVOffset, fontSize);
             }
             var mask = new Path2D();
             mask.moveTo(0, 0);
