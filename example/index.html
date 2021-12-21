@@ -1,18 +1,136 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Favicon notify example</title>
+    <meta charset="utf-8">
+    <title>Rollup Bundle</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     <style>
-        .wrapper {
+        body {
+            background-color: #fff;
+            font-family: sans-serif;
+            font-size: 16px;
+            transition: all .3s ease-in-out;
+        }
+        body.black{
+            background-color: #1c1c1c;
+            color: #ffffff;
+        }
+        #wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            display: flex;
+            padding: 1rem 0;
+            border: 1px solid #c0c0c0;
+            border-radius: .4rem;
+        }
+        .buttons {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        .buttons > button {
+            margin: 0 .5rem;
+            border: none;
+            border-radius: .5rem;
+            appearance: none;
+            background-color: #4a96cb;
+            color: #ffffff;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color .3s ease-in-out;
+        }
+        .buttons > button:hover {
+            background-color: #7AA9CB;
+        }
+        .options {
+            padding: 2rem;
+        }
+        .options:not(:last-child) {
+            border-right: 1px solid #c0c0c0;
+        }
+        label {
+            display: block;
+            margin-bottom: 1rem;
+        }
+        label > span {
+            display: block;
+            margin-bottom: .5rem;
+            font-weight: bold;
+        }
+        select {
             width: 100%;
+            padding: .2rem .5rem;
+            border-radius: .4rem;
         }
     </style>
 </head>
-<body>
+<body class>
+    <div id="wrapper">
+        <img id="img" src="favicon.png" alt="favicon-notify" />
+        <h1>Favicon Notify JS</h1>
+        <label>
+            <input id="themeSwitcher" type="checkbox" />
+            Black theme
+        </label>
+        <div class="buttons">
+            <button id="add">Add</button>
+            <button id="remove">Remove</button>
+        </div>
+        <div class="container">
+            <div class="options">
+                <label>
+                    <input id="counterSwitcher" type="checkbox" />
+                    <strong>With a counter</strong>
+                </label>
+                <label>
+                    <span>Label size</span>
+                    <input id="sizeRange" type="range" min="10" max="110" step="1" value>
+                </label>
+                <label>
+                    <span>Label offset</span>
+                    <input id="offsetRange" type="range" min="0" max="10" step="1" value>
+                </label>
+            </div>
+            <div class="options">
+                <label>
+                    <span>Font size: </span>
+                    <input id="fontSize" type="range" min="10" max="90" step="1" value>
+                </label>
+                <label>
+                    <span>Font vertical offset: </span>
+                    <input id="fontVOffset" type="range" min="-10" max="10" step="1" value>
+                </label>
+                <label>
+                    <span>Font style</span>
+                    <select id="fontStyle">
+                        <option value="normal" selected>Normal</option>
+                        <option value="italic">Italic</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Font weight</span>
+                    <select id="fontWeight">
+                        <option value="normal">Normal</option>
+                        <option value="bold" selected>Bold</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                        <option value="600">600</option>
+                        <option value="700">700</option>
+                        <option value="800">800</option>
+                        <option value="900">900</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+    <script src="plugin.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

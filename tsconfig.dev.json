@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "outDir": "example",
+    "strict": true
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "tests"
+  ]
+}
