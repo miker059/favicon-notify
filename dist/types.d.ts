@@ -10,6 +10,7 @@ export interface OptionsI {
     fontStyle: 'normal' | 'italic';
     fontVOffset: number;
     withCounter: boolean;
-    animation: 'none' | 'bounce' | 'slide';
-    animationDuration: number;
+    startCounterValue: number;
+    animation?: 'none' | 'bounce' | 'slide';
+    animationDuration?: number;
 }

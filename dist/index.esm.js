@@ -17,22 +17,20 @@ var FaviconNotify = /** @class */ (function () {
             labelColor: '#ff0000',
             labelSize: 70,
             labelOffset: 5,
-            textColor: '#fff',
+            textColor: '#ffffff',
             fontSize: 80,
             fontFamily: 'Arial',
             fontStyle: 'normal',
             fontWeight: 'bold',
             fontVOffset: 4,
             withCounter: false,
-            animation: 'none',
-            animationDuration: 500,
+            startCounterValue: 0,
         };
+        this.options = __assign(__assign({}, defaultOptions), options);
         this.forceNotCount = false;
         this.readyCallback = null;
         this.icoLoaded = false;
-        this.counter = 0;
-        this.options = __assign(__assign({}, defaultOptions), options);
-        this.appleFavicon = null;
+        this.counter = this.options.startCounterValue;
         if (favicon) {
             this.favicon = favicon;
             this.options.faviconUrl = this.favicon.href;
@@ -51,21 +49,10 @@ var FaviconNotify = /** @class */ (function () {
         this.ico.addEventListener('load', function () {
             _this.icoLoaded = true;
             _this.favicon.href = _this.ico.src;
-            _this.appleFavicon = document.querySelector('[rel=apple-touch-icon]');
-            if (!_this.appleFavicon) {
-                _this.appleFavicon = document.createElement('link');
-                _this.appleFavicon.rel = 'apple-touch-icon';
-                _this.appleFavicon.setAttribute('sizes', "".concat(_this.ico.width, "x").concat(_this.ico.height));
-                _this.appleFavicon.href = _this.ico.src;
-            }
             var head = document.getElementsByTagName('head')[0];
             head.appendChild(_this.favicon);
-            head.appendChild(_this.appleFavicon);
             _this.readyCallback !== null && _this.readyCallback();
         });
-    };
-    FaviconNotify.prototype.ready = function (cb) {
-        this.readyCallback = cb;
     };
     FaviconNotify.prototype.drawIcon = function () {
         if (!this.icoLoaded) {
@@ -118,14 +105,57 @@ var FaviconNotify = /** @class */ (function () {
     };
     FaviconNotify.prototype.addFavicon = function (url) {
         this.favicon && (this.favicon.href = url);
-        this.appleFavicon && (this.appleFavicon.href = url);
     };
+    /***
+     * Executes the passed callback when the Favicon Notify instance is initialized.
+     *
+     * @param cb // Callback function
+     * @return void
+     */
+    FaviconNotify.prototype.ready = function (cb) {
+        this.readyCallback = cb;
+    };
+    /***
+     * Add a notification to the favicon.
+     * If the WithCounter option is enabled (by default is disabled),
+     * each subsequent call to this method will increment the counter by one.
+     * If the WithCounter option is disabled (by default)
+     * the value will not be displayed on the favicon instead,
+     * an empty notification will be shown.
+     *
+     * @param forceNotCount: Boolean // Optional. Leaves the counter value unchanged.
+     * @return faviconNotify context
+     */
     FaviconNotify.prototype.add = function (forceNotCount) {
         if (forceNotCount === void 0) { forceNotCount = false; }
         this.forceNotCount = forceNotCount;
         this.addFavicon(this.drawIcon());
         return this;
     };
+    /***
+     * Sets the counter value and add notification from the favicon.
+     * If the WithCounter option is enabled (by default is disabled),
+     * this action will overwrite the counter current value.
+     * If the WithCounter option is disabled (by default)
+     * the value will not be displayed on the favicon instead,
+     * an empty notification will be shown.
+     *
+     * @param value: Number
+     * @return faviconNotify context
+     */
+    FaviconNotify.prototype.setCounter = function (value) {
+        this.counter = value;
+        this.add(true);
+        return this;
+    };
+    /***
+     * Remove a notification from the favicon.
+     * If the "With counter" option is enabled (by default),
+     * the counter will be reset to zero.
+     *
+     * @param forceNotCount: Boolean // Optional. Leaves the counter value unchanged.
+     * @return faviconNotify context
+     */
     FaviconNotify.prototype.remove = function (forceNotCount) {
         if (forceNotCount === void 0) { forceNotCount = false; }
         this.forceNotCount = forceNotCount;

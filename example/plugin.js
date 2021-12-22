@@ -22,7 +22,7 @@ var FaviconNotify = (function () {
                 fontWeight: 'bold',
                 fontVOffset: 4,
                 withCounter: false,
-                startCounterValue: 0
+                startCounterValue: 0,
             };
             this.options = { ...defaultOptions, ...options };
             this.forceNotCount = false;
@@ -161,4 +161,5 @@ var FaviconNotify = (function () {
     }
 
     return FaviconNotify;
+
 })();
