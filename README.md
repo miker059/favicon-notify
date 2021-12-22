@@ -1,4 +1,4 @@
-<p align="center" width="100%">
+<p align="center" width="100%" style="margin-top: 50px;">
     <img src="https://raw.githubusercontent.com/miker059/favicon-notify/master/docs/favicon-example.png" alt="Favicon Notify">
 </p>
 <h1 align="center">
