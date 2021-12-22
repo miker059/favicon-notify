@@ -6,7 +6,7 @@ export default {
   input: 'src/index.ts',
   output: {
     name: 'FaviconNotify',
-    file: 'example/plugin.js',
+    file: 'docs/plugin.js',
     format: 'iife',
   },
   plugins: [
