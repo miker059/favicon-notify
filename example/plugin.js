@@ -38,7 +38,8 @@ var FaviconNotify = (function () {
                 this.favicon.rel = 'icon';
                 this.favicon.type = 'image/x-icon';
             }
-            this.ico = document.createElement('img');
+            this.ico = new Image();
+            this.ico.crossOrigin = "Anonymous";
             this.ico.src = this.options.faviconUrl;
             this.init();
         }
