@@ -5,8 +5,18 @@
     Favicon Notify JS
 </h1>
 <p align="center" width="100%">
+    <a href="https://www.npmjs.com/package/favicon-notify/"><img alt="npm" src="https://img.shields.io/npm/v/favicon-notify?color=orange"></a>
+    <img alt="npm" src="https://img.shields.io/npm/dw/favicon-notify?color=yellow">
+    <img alt="NPM" src="https://img.shields.io/npm/l/favicon-notify?color=green">
+    <a href="https://github.com/miker059/favicon-notify"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/miker059/favicon-notify?style=social"></a> 
+</p>
+<p align="center" width="100%">
     Plugin for displaying notifications on the favicon of the site.
 </p>
+<h3 align="center" width="100%">
+    <a href="https://miker059.github.io/favicon-notify/">LIVE DEMO</a>
+</h3>
+
 
 ### Installation
 
