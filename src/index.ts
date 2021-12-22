@@ -4,7 +4,6 @@ class FaviconNotify {
   private readonly options: OptionsI
   private readonly favicon: HTMLLinkElement
   private readonly ico: HTMLImageElement
-  private appleFavicon: HTMLLinkElement | null
   private counter: number
   private icoLoaded: boolean
   private forceNotCount: boolean
@@ -16,22 +15,20 @@ class FaviconNotify {
       labelColor: '#ff0000',
       labelSize: 70, // In percents
       labelOffset: 5, // In percents
-      textColor: '#fff',
+      textColor: '#ffffff',
       fontSize: 80, // In percents of labelSize
       fontFamily: 'Arial',
       fontStyle: 'normal',
       fontWeight: 'bold',
       fontVOffset: 4,
       withCounter: false,
-      animation: 'none',
-      animationDuration: 500,
+      startCounterValue: 0
     }
+    this.options = { ...defaultOptions, ...options }
     this.forceNotCount = false
     this.readyCallback = null
     this.icoLoaded = false
-    this.counter = 0
-    this.options = { ...defaultOptions, ...options }
-    this.appleFavicon = null
+    this.counter = this.options.startCounterValue
 
     if (favicon) {
       this.favicon = favicon
@@ -52,24 +49,10 @@ class FaviconNotify {
     this.ico.addEventListener('load', () => {
       this.icoLoaded = true
       this.favicon.href = this.ico.src
-
-      this.appleFavicon = document.querySelector('[rel=apple-touch-icon]')
-      if (!this.appleFavicon) {
-        this.appleFavicon = document.createElement('link')
-        this.appleFavicon.rel = 'apple-touch-icon'
-        this.appleFavicon.setAttribute('sizes', `${this.ico.width}x${this.ico.height}`)
-        this.appleFavicon.href = this.ico.src
-      }
-
       const head = document.getElementsByTagName('head')[0]
       head.appendChild(this.favicon)
-      head.appendChild(this.appleFavicon)
       this.readyCallback !== null && this.readyCallback()
     })
-  }
-
-  public ready(cb: () => any) {
-    this.readyCallback = cb
   }
 
   private drawIcon() {
@@ -123,15 +106,60 @@ class FaviconNotify {
 
   private addFavicon(url: string): void {
     this.favicon && (this.favicon.href = url)
-    this.appleFavicon && (this.appleFavicon.href = url)
   }
 
+  /***
+   * Executes the passed callback when the Favicon Notify instance is initialized.
+   *
+   * @param cb // Callback function
+   * @return void
+   */
+  public ready(cb: () => any): void {
+    this.readyCallback = cb
+  }
+
+  /***
+   * Add a notification to the favicon.
+   * If the WithCounter option is enabled (by default is disabled),
+   * each subsequent call to this method will increment the counter by one.
+   * If the WithCounter option is disabled (by default)
+   * the value will not be displayed on the favicon instead,
+   * an empty notification will be shown.
+   *
+   * @param forceNotCount: Boolean // Optional. Leaves the counter value unchanged.
+   * @return faviconNotify context
+   */
   public add(forceNotCount: boolean = false): FaviconNotify {
     this.forceNotCount = forceNotCount
     this.addFavicon(this.drawIcon())
     return this
   }
 
+  /***
+   * Sets the counter value and add notification from the favicon.
+   * If the WithCounter option is enabled (by default is disabled),
+   * this action will overwrite the counter current value.
+   * If the WithCounter option is disabled (by default)
+   * the value will not be displayed on the favicon instead,
+   * an empty notification will be shown.
+   *
+   * @param value: Number
+   * @return faviconNotify context
+   */
+  public setCounter(value: number): FaviconNotify {
+    this.counter = value
+    this.add(true)
+    return this
+  }
+
+  /***
+   * Remove a notification from the favicon.
+   * If the "With counter" option is enabled (by default),
+   * the counter will be reset to zero.
+   *
+   * @param forceNotCount: Boolean // Optional. Leaves the counter value unchanged.
+   * @return faviconNotify context
+   */
   public remove(forceNotCount: boolean = false): FaviconNotify {
     this.forceNotCount = forceNotCount
     !forceNotCount && (this.counter = 0)
