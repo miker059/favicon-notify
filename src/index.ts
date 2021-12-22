@@ -40,7 +40,7 @@ class FaviconNotify {
     }
 
     this.ico = new Image()
-    this.ico.crossOrigin = "Anonymous"
+    this.ico.crossOrigin = 'Anonymous'
     this.ico.src = this.options.faviconUrl
 
     this.init()
